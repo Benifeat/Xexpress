@@ -20,14 +20,13 @@ export const useScrapeData = () => {
     dispatch(setCurrentSearch(search));
 
     try {
-      const res = await axios.post("http://localhost:3002/", {
+      const res = await axios.post(`${import.meta.env.VITE_PYTHON_SERVER}/`, {
         search,
         page,
       });
 
       if (res.data) {
         dispatch(setCards(res.data));
-        console.log(res.data);
       }
     } catch (err) {
       console.error(err);
@@ -49,7 +48,7 @@ function App() {
 
       try {
         if (refreshToken && !token) {
-          const res = await axios.post(`http://localhost:5000/auth/replace`, {}, {
+          const res = await axios.post(`${import.meta.env.VITE_NODEJS_SERVER}/auth/replace`, {}, {
             headers: {
               refreshToken
             }

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-// import { setFullName, setShowAuth, setToken } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
 import { Checkbox, Chip, cn, Button, Image } from "@nextui-org/react";
 import { Check, ShoppingBasket } from "lucide-react";
@@ -25,7 +24,6 @@ const ShoppingCart: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(selectedItems);
     if (selectedItems.length > 0) {
       const values = selectedItems.map(
         (item) =>
@@ -214,7 +212,7 @@ const ShoppingCart: React.FC = () => {
                     if (!token) {
                       dispatch(setShowAuth(true))
                     } else {
-                      if(selectedItems.length > 0) {
+                      if (selectedItems.length > 0) {
                         setShowPaypal(true);
                       }
                     }
@@ -259,7 +257,7 @@ const ShoppingCart: React.FC = () => {
     </>
   ) : <>
     <div className="flex w-full min-h-[100vh] pt-52 bg-background justify-center text-center">
-      <PayPalScriptProvider options={{ clientId: "AQu6mNRzH2g9sEE0j0h3fwpMXYWUzLVQhwU_B4e5Ec3wRYs3EgR8WPOsvsjnv_M35S6zKD_a-zBXeZxO" }}>
+      <PayPalScriptProvider options={{ clientId: import.meta.env.VITE_PAYPAL_CLIENT_ID }}>
         <div className="flex flex-col items-center justify-center bg-gray-800 mb-5 text-white p-6 rounded-lg shadow-md w-full md:w-1/2 lg:w-1/3">
           <h1 className="font-bold text-2xl mb-10">Pay with Paypal</h1>
           <PayPalButtons

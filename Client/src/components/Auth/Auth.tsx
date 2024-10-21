@@ -52,13 +52,9 @@ const Auth: React.FC = () => {
     if (!showAuth || !formData.email) return;
 
     try {
-      const res = await axios.post(
-        `http://localhost:5000/auth/${
-          !checkEmail ? "valid-email" : handleAuth ? "register" : "login"
-        }`,
+      const res = await axios.post(`${import.meta.env.VITE_NODEJS_SERVER}/auth/${!checkEmail ? "valid-email" : handleAuth ? "register" : "login"}`,
         { ...formData }
       );
-      console.log(res);
 
       if (!checkEmail) {
         setHandleAuth(!res.data.exist);
@@ -88,8 +84,8 @@ const Auth: React.FC = () => {
                 {!checkEmail
                   ? "Register/Sign In"
                   : handleAuth
-                  ? "Register"
-                  : "Sign In"}
+                    ? "Register"
+                    : "Sign In"}
               </h1>
               <X
                 className="hover:cursor-pointer"
@@ -241,11 +237,10 @@ const Auth: React.FC = () => {
               </>
             )}
             <button
-              className={`border border-red-600 p-2 w-[100%] mt-5  rounded-3xl text-white transition-all ${
-                formData.email
-                  ? "cursor-pointer bg-red-600 hover:-translate-y-[2px] hover:bg-red-500"
-                  : "cursor-not-allowed bg-red-300"
-              }`}
+              className={`border border-red-600 p-2 w-[100%] mt-5  rounded-3xl text-white transition-all ${formData.email
+                ? "cursor-pointer bg-red-600 hover:-translate-y-[2px] hover:bg-red-500"
+                : "cursor-not-allowed bg-red-300"
+                }`}
               disabled={!formData.email}
             >
               {!checkEmail ? "Continue" : handleAuth ? "Register" : "Sign In"}

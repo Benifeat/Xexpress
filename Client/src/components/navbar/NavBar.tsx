@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Navbar,
   NavbarBrand,
@@ -25,7 +25,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { setShowAuth, setToken, setFullName } from "../../store/store";
 import { useScrapeData } from "../../App";
 import { useNavigate } from "react-router-dom";
-import axios, { AxiosError } from "axios";
 
 const NavBar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -175,36 +174,6 @@ const NavBar: React.FC = () => {
       ],
     },
   ];
-
-  useEffect(() => {
-    const validateUser = async () => {
-      const refreshToken = localStorage.getItem("clone_token");
-
-      try {
-        if (refreshToken && !token) {
-          const res = await axios.post(
-            "http://localhost:3002/auth/replace",
-            {},
-            {
-              headers: {
-                refreshToken,
-              },
-            }
-          );
-
-          if (res.status === 200) {
-            dispatch(setToken(res.data.token));
-            dispatch(setFullName(res.data.fullName));
-          }
-        }
-      } catch (error) {
-        const axiosError = error as AxiosError;
-        console.error(axiosError.message);
-      }
-    };
-
-    validateUser();
-  }, [dispatch, token]);
 
   const handleSearchAndNavigate = (searchTerm: string) => {
     getData(searchTerm);
